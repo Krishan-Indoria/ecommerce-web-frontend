@@ -1,13 +1,18 @@
 import React from 'react'
 import { FaRegUserCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link ,Outlet} from 'react-router-dom';
+import { Link ,Outlet, useNavigate} from 'react-router-dom';
 import { TbUsersPlus } from "react-icons/tb";
 import { AiOutlineProduct } from "react-icons/ai";
 
 const AdminPanel = () => {
   const user = useSelector((state) => state?.user?.user);
-
+  const navigate = useNavigate();
+  if(user){
+    if(user?.userType === "General"){
+    navigate('/')
+    }
+  }
   return (
     <div className='min-h-[calc(100vh-120px)] md:flex hidden  '>
       <aside className='bg-teal-700 min-h-full w-full max-w-60 shadow-md text-white'>
