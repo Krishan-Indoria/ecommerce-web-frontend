@@ -1,4 +1,4 @@
-import React from 'react'
+import {React,useState} from 'react'
 import Logo from './Logo';
 import { IoSearch } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { serverPath } from '../helpers/constant';
 import { toast } from 'react-toastify'
 import { setUserDetails } from '../store/userSlice';
 const Header = () => {
-  
+  const [isAdminShow, setIsAdminShow] = useState(false);
   const user = useSelector((state) => state?.user?.user);
   const dispatch = useDispatch()
   
@@ -48,9 +48,18 @@ const Header = () => {
           </div>
         </div>
         <div className='flex items-center justify-center gap-7'>
-          <div className='text-3xl cursor-pointer text-teal-800'>
+          <div className='relative group flex items-center justify-center '>
+          <div className='text-3xl cursor-pointer text-teal-800' onClick = {() => setIsAdminShow(!isAdminShow)}>
             {user?.profilePic ? (<img src={user.profilePic} className='w-10 h-10 rounded-full' alt={user?.name} />) : (<FaRegUserCircle />)}
+            {  isAdminShow  && (<div className='bg-slate-100 shadow-md absolute  top-12 right-0 -left-8 bottom-0 w-fit h-fit rounded p-1'>
+              <div className='text-sm text-nowrap font-semibold  group-hover:bg-teal-600  py-1 px-2 rounded'>
+                <Link to={'/admin-panel'} className='text-decoration-none text-teal-500 group-hover:text-white'>Admin-Panel</Link>
+              </div>
+            </div>) }
+            
           </div>
+          </div>
+          
           <div className='flex  items-center justify-center relative '>
             <span className='text-3xl text-teal-700' ><PiShoppingCartFill /></span>
             <div className='d-flex justify-content-center w-5 p-2  bg-teal-600 h-5 rounded-full absolute -top-2 -right-3'>
